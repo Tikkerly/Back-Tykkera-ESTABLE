@@ -1,10 +1,3 @@
-const adminControllers = require('./adminControllers/index');
-/*
-adminControllers = {
-    banController,
-    orderController
-}
-*/
 const userControllers = require('./userControllers/index');
 /*
 userControllers = {
@@ -13,6 +6,5 @@ userControllers = {
 } */
 
 module.exports = {
-    adminControllers,
     userControllers
 }

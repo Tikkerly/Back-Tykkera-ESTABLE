@@ -1,7 +1,9 @@
-const loginUserController = require('./loginUserController/index');
-const registerUserController = require('./registerUserController/index');
+const loginUser = require('./loginUser/index');
+const registerUser = require('./registerUser/index');
+const editUser = require('./editUser/index')
 
 module.exports = {
-    loginUserController,
-    registerUserController
+    loginUser,
+    registerUser,
+    editUser
 }
