@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const userRoutes = Router();
 const { userControllers } = require("../../controllers/index");
-const { checkJWT } = require("../../middlewares/index");
+const {  validarJWT } = require("../../middlewares/index");
 const { check } = require("express-validator");
 
 const { fieldsValidate } = require("../../middlewares/index");
@@ -18,7 +18,7 @@ userControllers = {
 //userRoutes.use('/profileInfo',checkJWT)
 //userRoutes.get('/profileInfo', userControllers.profileInfo)
 
-userRoutes.get("/", userControllers.getUsers);
+userRoutes.get("/", validarJWT, userControllers.getUsers );
 
 userRoutes.post("/loginUser", userControllers.loginUser);
 
@@ -37,15 +37,17 @@ userRoutes.post(
 // userRoutes.use('/editUser', checkJWT)
 userRoutes.put(
   "/editUser/:id",
+  validarJWT,
   [
     check("id", "El id no es valido").isMongoId(),
     check("id").custom(userExistById),
-    fieldsValidate,
+    fieldsValidate, 
   ],
   userControllers.editUser
 );
 userRoutes.delete(
   "/deleteUser",
+  validarJWT,
   [
     check("id", "El id no es valido").isMongoId(),
     check("id").custom(userExistById),
