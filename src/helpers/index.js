@@ -1,5 +1,7 @@
-// const modelLoginResponse = require('./modelLoginResponse/index');
+const hashPassword = require('./bcrypt/hashPassword');
+const comparePassword = require('./bcrypt/comparePassword')
 
-// module.exports = {
-//     modelLoginResponse,
-// }
+module.exports = {
+    hashPassword,
+    comparePassword
+}
