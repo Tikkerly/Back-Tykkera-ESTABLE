@@ -2,7 +2,13 @@ const { Router } = require("express");
 const userRoutes = Router();
 const { userControllers } = require("../../controllers/index");
 const { checkJWT } = require("../../middlewares/index");
+const { check } = require("express-validator");
 
+const { fieldsValidate } = require("../../middlewares/index");
+const {
+  existEmail,
+  userExistById,
+} = require("../../helpers/customValidations/index");
 /*
 userControllers = {
     loginUserController,
@@ -12,11 +18,40 @@ userControllers = {
 //userRoutes.use('/profileInfo',checkJWT)
 //userRoutes.get('/profileInfo', userControllers.profileInfo)
 
- userRoutes.post('/loginUser', userControllers.loginUser);
- userRoutes.post('/registerUser', userControllers.registerUser);
+userRoutes.get("/", userControllers.getUsers);
+
+userRoutes.post("/loginUser", userControllers.loginUser);
+
+userRoutes.post(
+  "/registerUser",
+  [
+    check("username", "EL nombre es obligatorio").not().isEmpty(),
+    check("email", "EL email es obligatorio").not().isEmpty(),
+    check("email").custom(existEmail),
+    check("password", "La contraseña es obligatoria").not().isEmpty(),
+    fieldsValidate,
+  ],
+  userControllers.registerUser
+);
 
 // userRoutes.use('/editUser', checkJWT)
- userRoutes.put('/editUser', userControllers.editUser);
- userRoutes.delete('/deleteUser', userControllers.deleteUser);
+userRoutes.put(
+  "/editUser/:id",
+  [
+    check("id", "El id no es valido").isMongoId(),
+    check("id").custom(userExistById),
+    fieldsValidate,
+  ],
+  userControllers.editUser
+);
+userRoutes.delete(
+  "/deleteUser",
+  [
+    check("id", "El id no es valido").isMongoId(),
+    check("id").custom(userExistById),
+    fieldsValidate,
+  ],
+  userControllers.deleteUser
+);
 
 module.exports = userRoutes;

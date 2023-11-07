@@ -1,5 +1,5 @@
 // const checkJWT = require('./auth/index')
-
-// module.exports = {
-//     checkJWT
-// }
+const { fieldsValidate } = require("./validateErrors/index");
+module.exports = {
+  fieldsValidate,
+};
