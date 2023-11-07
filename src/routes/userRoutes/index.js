@@ -2,6 +2,7 @@ const { Router } = require("express");
 const userRoutes = Router();
 const { userControllers } = require("../../controllers/index");
 const { checkJWT } = require("../../middlewares/index");
+
 /*
 userControllers = {
     loginUserController,
@@ -11,10 +12,11 @@ userControllers = {
 //userRoutes.use('/profileInfo',checkJWT)
 //userRoutes.get('/profileInfo', userControllers.profileInfo)
 
-// userRoutes.post('/loginUser', userControllers.loginUser);
-// userRoutes.post('/registerUser', userControllers.registerUser);
+ userRoutes.post('/loginUser', userControllers.loginUser);
+ userRoutes.post('/registerUser', userControllers.registerUser);
 
 // userRoutes.use('/editUser', checkJWT)
-// userRoutes.put('/editUser', userControllers.editUser);
+ userRoutes.put('/editUser', userControllers.editUser);
+ userRoutes.delete('/deleteUser', userControllers.deleteUser);
 
 module.exports = userRoutes;
