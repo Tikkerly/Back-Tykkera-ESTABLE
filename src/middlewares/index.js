@@ -1,5 +1,5 @@
-const checkJWT = require('./auth/index')
+// const checkJWT = require('./auth/index')
 
-module.exports = {
-    checkJWT
-}
+// module.exports = {
+//     checkJWT
+// }

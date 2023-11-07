@@ -1,5 +1,5 @@
-const modelLoginResponse = require('./modelLoginResponse/index');
+// const modelLoginResponse = require('./modelLoginResponse/index');
 
-module.exports = {
-    modelLoginResponse,
-}
+// module.exports = {
+//     modelLoginResponse,
+// }
