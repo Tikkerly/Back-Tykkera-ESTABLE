@@ -6,7 +6,7 @@ const editUser = async (req, res) => {
         const { id } = req.params;
         const { _id, password, google, email, ...rest } = req.body;
         if (password) {
-            resto.password = hashPassword(password)
+            rest.password = hashPassword(password)
         }
         const user = await User.findByIdAndUpdate(id, rest);
         return res.status(200).json(user);
