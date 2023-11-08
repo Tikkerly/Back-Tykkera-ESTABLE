@@ -14,10 +14,8 @@ const {
 
 userRoutes.get("/", validarJWT, adminRole, userControllers.getUsers);
 
-userRoutes.post("/loginUser", userControllers.loginUser);
-
 userRoutes.post(
-  "/registerUser",
+  "/registeruser",
   [
     check("username", "EL nombre es obligatorio").not().isEmpty(),
     check("email", "EL email es obligatorio").not().isEmpty(),
@@ -30,7 +28,7 @@ userRoutes.post(
 
 // userRoutes.use('/editUser', checkJWT)
 userRoutes.put(
-  "/editUser/:id",
+  "/edituser/:id",
   validarJWT,
   [
     check("id", "El id no es valido").isMongoId(),
@@ -40,7 +38,7 @@ userRoutes.put(
   userControllers.editUser
 );
 userRoutes.delete(
-  "/deleteUser",
+  "/deleteuser/:id",
   validarJWT,
   adminRole,
   [

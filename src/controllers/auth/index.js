@@ -4,7 +4,7 @@ const User = require("../../models/User");
 const { generarJWT, googleVerify } = require("../../helpers");
 
 const login = async (req, res = response) => {
-  const { correo, password } = req.body;
+  const { email, password } = req.body;
 
   try {
     // Verificar si el email existe
