@@ -2,9 +2,7 @@ const mongoose = require("mongoose");
 
 const dbConnection = async () => {
   try {
-    await mongoose.connect(
-      "mongodb+srv://tikkerly:tikkerlypf123@tikkerly.pi8otnf.mongodb.net/"
-    );
+    await mongoose.connect(process.env.MONGO_URI);
     console.log("Base de datos online");
   } catch (error) {
     console.log(error);
