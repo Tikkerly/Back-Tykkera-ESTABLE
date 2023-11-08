@@ -1,22 +1,18 @@
 const { Router } = require("express");
 const userRoutes = Router();
 const { userControllers } = require("../../controllers/index");
-const {  validarJWT, adminRole, fieldsValidate } = require("../../middlewares/index");
+const {
+  validarJWT,
+  adminRole,
+  fieldsValidate,
+} = require("../../middlewares/index");
 const { check } = require("express-validator");
 const {
   existEmail,
   userExistById,
 } = require("../../helpers/customValidations/index");
-/*
-userControllers = {
-    loginUserController,
-    registerUserController
-} */
 
-//userRoutes.use('/profileInfo',checkJWT)
-//userRoutes.get('/profileInfo', userControllers.profileInfo)
-
-userRoutes.get("/", validarJWT, adminRole, userControllers.getUsers );
+userRoutes.get("/", validarJWT, adminRole, userControllers.getUsers);
 
 userRoutes.post("/loginUser", userControllers.loginUser);
 
@@ -39,7 +35,7 @@ userRoutes.put(
   [
     check("id", "El id no es valido").isMongoId(),
     check("id").custom(userExistById),
-    fieldsValidate, 
+    fieldsValidate,
   ],
   userControllers.editUser
 );
