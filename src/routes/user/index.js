@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const userRoutes = Router();
-const { userControllers } = require("../../controllers/index");
+const { userControllers } = require("../../controllers");
 const {
   validarJWT,
   adminRole,
@@ -48,5 +48,17 @@ userRoutes.delete(
   ],
   userControllers.deleteUser
 );
+
+userRoutes.post(
+  "/forgotpassword",
+  [
+    check("id", "El id no es valido").isMongoId(),
+    check("email").custom(existEmail),
+    check("email", "EL email es obligatorio").not().isEmpty(),
+    fieldsValidate,
+  ],
+  userControllers.forgotPassword
+);
+userRoutes.post("/passwordrecovery", userControllers.passwordRecovery);
 
 module.exports = userRoutes;

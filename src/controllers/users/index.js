@@ -1,11 +1,14 @@
-const registerUser = require("./registerUser/index");
-const editUser = require("./editUser/index");
-const getUsers = require("./getUsers/index");
-const deleteUser = require("./deleteUser/index");
+const registerUser = require("./registerUser");
+const editUser = require("./editUser");
+const getUsers = require("./getUsers");
+const deleteUser = require("./deleteUser");
+const { forgotPassword, passwordRecovery } = require("./forgotPassword");
 
 module.exports = {
   registerUser,
   editUser,
   getUsers,
   deleteUser,
+  forgotPassword,
+  passwordRecovery,
 };
