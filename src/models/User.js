@@ -17,6 +17,10 @@ const UserSchema = Schema({
   img: {
     type: String,
   },
+  clientId: {
+    type: Number,
+    required: [true, "El Nit es obligatorio"],
+  },
   rol: {
     type: String,
     required: true,

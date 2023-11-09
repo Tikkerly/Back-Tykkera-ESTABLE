@@ -25,8 +25,16 @@ userRoutes.post(
   ],
   userControllers.registerUser
 );
+userRoutes.post(
+  "/validateregister",
+  [
+    check("email", "EL email es obligatorio").not().isEmpty(),
+    check("email").custom(existEmail),
+    fieldsValidate,
+  ],
+  userControllers.validateRegister
+);
 
-// userRoutes.use('/editUser', checkJWT)
 userRoutes.put(
   "/edituser/:id",
   validarJWT,
