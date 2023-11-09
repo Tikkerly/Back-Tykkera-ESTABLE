@@ -3,7 +3,8 @@ const { ticketControllers } = require("../../controllers/index");
 const { check } = require("express-validator");
 const { fieldsValidate } = require("../../middlewares/index");
 
-ticketRoutes.get("/", ticketControllers.getTickets);
+ticketRoutes.get("/", ticketControllers.getAllTickets);
+ticketRoutes.get("/:client_id", ticketControllers.getTicketsClient);
 ticketRoutes.post(
   "/register-ticket",
   [
