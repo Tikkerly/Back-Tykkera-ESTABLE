@@ -10,7 +10,6 @@ ticketRoutes.post(
     check("description", "La descripción es obligatoria").not().isEmpty(),
     check("client_id", "El cliente es obligatorio").not().isEmpty(),
     fieldsValidate,
-    ,
   ],
   ticketControllers.registerTicket
 );
