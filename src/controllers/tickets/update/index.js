@@ -5,9 +5,9 @@ const Ticket = require("../../../models/Ticket");
 
 // const updateTicket = async (req, res) => {
 //   try {
-//     const { code } = req.params;
+//     const { id } = req.params;
 //     const { technician_id, status } = req.body;
-//     const ticket = await Ticket.findOne({ code });
+//     const ticket = await Ticket.findOne({ od });
 //     if (ticket) {
 //       if (ticket.technician_id === technician_id) {
 //         ticket.status = status;
@@ -35,9 +35,9 @@ const Ticket = require("../../../models/Ticket");
 // ! Atención: Aquí abro debate con todos para ver cual se considera mejor o ambos
 const updateTicket = async (req, res) => {
   try {
-    const { code } = req.params;
+    const { id } = req.params;
     const { status } = req.body;
-    const ticket = await Ticket.findOne({ code });
+    const ticket = await Ticket.findOne({ id });
     if (ticket) {
       ticket.status = status;
       await ticket.save();

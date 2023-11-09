@@ -2,8 +2,8 @@ const Ticket = require("../../../models/Ticket");
 
 const deleteTicket = async (req, res) => {
   try {
-    const { code } = req.params;
-    const ticket = await Ticket.findOneAndUpdate({ code }, { isDeleted: true });
+    const { id } = req.params;
+    const ticket = await Ticket.findOneAndUpdate({ id }, { isDeleted: true });
 
     return ticket
       ? res.status(200).json({
