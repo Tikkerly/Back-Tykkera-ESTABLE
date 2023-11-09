@@ -3,9 +3,7 @@ const { Schema, model } = require("mongoose");
 const TicketSchema = Schema({
   // Consecutivo Interno
   internalConsecutive: {
-    type: String,
-    unique: true,
-    required: [true, "El consecutivo interno es obligatorio"],
+    type: Number,
   },
   description: {
     type: String,
@@ -13,7 +11,6 @@ const TicketSchema = Schema({
   },
   status: {
     type: String,
-    required: [true, "El estado del ticket es obligatorio"],
     enum: [
       "Pendiente",
       "Aprobado",
@@ -23,6 +20,7 @@ const TicketSchema = Schema({
       "Cerrado",
       "Rechazado",
     ],
+    default: "Pendiente",
   },
   createdAt: {
     type: Date,
