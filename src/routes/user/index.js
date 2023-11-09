@@ -17,6 +17,8 @@ userRoutes.get("/", validarJWT, adminRole, userControllers.getUsers);
 userRoutes.post(
   "/registeruser",
   [
+    check("clientId", "El NIT es obligatorio").not().isEmpty(),
+    check("rol", "EL rol es obligatorio").not().isEmpty(),
     check("username", "EL nombre es obligatorio").not().isEmpty(),
     check("email", "EL email es obligatorio").not().isEmpty(),
     check("email").custom(existEmail),
