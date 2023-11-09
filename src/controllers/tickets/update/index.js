@@ -35,9 +35,9 @@ const Ticket = require("../../../models/Ticket");
 // ! Atención: Aquí abro debate con todos para ver cual se considera mejor o ambos
 const updateTicket = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { id: _id } = req.params;
     const { status } = req.body;
-    const ticket = await Ticket.findOne({ id });
+    const ticket = await Ticket.findOne({ _id });
     if (ticket) {
       ticket.status = status;
       await ticket.save();
