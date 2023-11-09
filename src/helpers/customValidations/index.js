@@ -3,14 +3,14 @@ const existEmail = async (mail = "") => {
   const user = await User.findOne({ mail });
 
   if (user) {
-    throw new Error(`The email ${email} already exists`);
+    throw new Error(`El Correo ${email} ya existe`);
   }
 };
 
 const userExistById = async (id) => {
   const userExist = await User.findById(id);
   if (!userExist) {
-    throw new Error(`The user with ${id} does not exist`);
+    throw new Error(`El usuario con id ${id} no existe`);
   }
 };
 
