@@ -28,28 +28,28 @@ const TicketSchema = Schema({
     type: Date,
     default: Date.now,
   },
-  client: {
+  client_id: {
     type: Schema.Types.ObjectId,
     ref: "User",
     required: [true, "EL cliente es obligatorio"],
   },
-  technician: {
+  technician_id: {
     type: Schema.Types.ObjectId,
     ref: "User",
-    required: [true, "Se debe asignar un técnico."],
   },
   //   Crear modelo de servicios
   service: {
     type: Schema.Types.ObjectId,
-    ref: "Service",
-    required: [true, "Se debe seleccionar un servicio"],
+    ref: "User",
   },
   realizationDate: {
     type: Date,
   },
+  image: {
+    type: String,
+  },
   observations: {
     type: String,
-    required: [true, "Las observaciones son obligatorias"],
   },
 
   technicianRating: {
