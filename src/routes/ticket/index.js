@@ -1,12 +1,18 @@
 const ticketRoutes = require("express").Router();
 const { ticketControllers } = require("../../controllers/index");
 const { check } = require("express-validator");
-const { fieldsValidate } = require("../../middlewares/index");
+const {
+  validarJWT,
+  adminRole,
+  fieldsValidate,
+} = require("../../middlewares/index");
 
-ticketRoutes.get("/", ticketControllers.getAllTickets);
-ticketRoutes.get("/:client_id", ticketControllers.getTicketsClient);
+ticketRoutes.get("/", validarJWT, adminRole, ticketControllers.getAllTickets);
+ticketRoutes.get("/:client_id", validarJWT, ticketControllers.getTicketsClient);
+
 ticketRoutes.post(
-  "/register-ticket",
+  "/registerticket",
+  validarJWT,
   [
     check("description", "La descripción es obligatoria").not().isEmpty(),
     check("client_id", "El cliente es obligatorio").not().isEmpty(),
@@ -14,13 +20,16 @@ ticketRoutes.post(
   ],
   ticketControllers.registerTicket
 );
+
 ticketRoutes.delete(
-  "/delete-ticket/:id",
+  "/deleteticket/:id",
+  validarJWT,
   [check("id", "El id no es válido").isMongoId(), fieldsValidate],
   ticketControllers.deleteTicket
 );
 ticketRoutes.put(
-  "/update-ticket/:id",
+  "/updateticket/:id",
+  validarJWT,
   [check("id", "El id no es válido").isMongoId(), fieldsValidate],
   ticketControllers.updateTicket
 );
