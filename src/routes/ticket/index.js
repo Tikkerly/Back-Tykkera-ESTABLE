@@ -8,7 +8,7 @@ const {
 } = require("../../middlewares/index");
 
 ticketRoutes.get("/", validarJWT, adminRole, ticketControllers.getAllTickets);
-ticketRoutes.get("/:client_id", validarJWT, ticketControllers.getTicketsClient);
+ticketRoutes.get("/:id", validarJWT, ticketControllers.getTicketByUser);
 
 ticketRoutes.post(
   "/registerticket",
