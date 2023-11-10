@@ -1,5 +1,4 @@
 const Ticket = require("../../../models/Ticket");
-
 const getAllTickets = async (req, res) => {
   try {
     const [total, tickets] = await Promise.all([

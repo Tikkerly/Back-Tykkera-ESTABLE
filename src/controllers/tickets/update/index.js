@@ -1,54 +1,54 @@
 const Ticket = require("../../../models/Ticket");
-
+const User = require("../../../models/User");
 //* Se habla de solo actualizar el ticket
 //? Dos maneras: El técnico solo puede cambiar el estado del ticket al que fue asignado
 
-// const updateTicket = async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     const { technician_id, status } = req.body;
-//     const ticket = await Ticket.findOne({ od });
-//     if (ticket) {
-//       if (ticket.technician_id === technician_id) {
-//         ticket.status = status;
-//         await ticket.save();
-//         return res.status(200).json({
-//           message: "El estado del ticket ha sido actualizado con éxito",
-//         });
-//       }
-//       return res.status(401).json({
-//         message:
-//           "Error al editar el ticket. No cuentas con los permisos necesarios para editar el ticket de otro técnico",
-//       });
-//     }
-//     return res.status(404).json({
-//       message: "Ticket no encontrado",
-//     });
-//   } catch ({ message }) {
-//     return res.status(500).json(message);
-//   }
-// };
-
-//? La otra manera es en donde no se verifica quien cambiara el estatus del ticket
-//? Este método puede ser usado tanto por el técnico como por el agente de servicio
-
-// ! Atención: Aquí abro debate con todos para ver cual se considera mejor o ambos
 const updateTicket = async (req, res) => {
   try {
+    // ID DEL TICKET A EDITAR
     const { id: _id } = req.params;
-    const { status } = req.body;
-    const ticket = await Ticket.findOne({ _id });
-    if (ticket) {
-      ticket.status = status;
-      await ticket.save();
-      return res.status(200).json({
-        message: "El estado del ticket ha sido actualizado con éxito",
+
+    // Datos recibidos
+    // id hace referencia al id del usuario
+    const { user_id, ...rest } = req.body;
+    const user = await User.findOne({ _id: user_id });
+
+    if (user) {
+      const ticket = await Ticket.findOne({ _id });
+      if (ticket) {
+        const userRol = user.rol;
+
+        if (userRol === "TECNICO") {
+          if (ticket.technician_id !== user_id) {
+            return res.status(401).json({
+              message:
+                "Error, no cuentas con el permiso para realizar la modificación de este ticket.",
+            });
+          }
+        }
+
+        if (userRol === "CLIENTE") {
+          if (ticket.client_id !== user_id) {
+            return res.status(401).json({
+              message:
+                "Error, no cuentas con el permiso para realizar la modificación de este ticket.",
+            });
+          }
+        }
+
+        await Ticket.updateOne({ _id }, { $set: rest });
+      }
+      return res.status(401).json({
+        message: "Error al editar el ticket. Ticket no encontrado",
       });
     }
-    return res.status(404).json({
-      message: "Ticket no encontrado",
+
+    return res.status(401).json({
+      message: "Error al editar el ticket. Usuario inválido",
     });
-  } catch ({ message }) {}
+  } catch ({ message }) {
+    return res.status(500).json({ message });
+  }
 };
 
 module.exports = updateTicket;
