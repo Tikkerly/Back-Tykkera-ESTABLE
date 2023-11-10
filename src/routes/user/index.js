@@ -47,6 +47,18 @@ userRoutes.put(
   ],
   userControllers.editUser
 );
+
+userRoutes.get(
+  "/:id",
+  validarJWT,
+  [
+    check("id", "El id no es valido").isMongoId(),
+    check("id").custom(userExistById),
+    fieldsValidate,
+  ],
+  userControllers.getUser
+);
+
 userRoutes.delete(
   "/deleteuser/:id",
   validarJWT,
