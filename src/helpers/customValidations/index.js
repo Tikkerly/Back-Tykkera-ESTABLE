@@ -1,5 +1,6 @@
 const User = require("../../models/User");
-const existEmail = async (mail = "") => {
+
+const existEmail = async (email = "") => {
   const user = await User.findOne({ email });
 
   if (user) {

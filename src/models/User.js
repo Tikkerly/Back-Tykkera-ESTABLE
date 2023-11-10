@@ -26,6 +26,11 @@ const UserSchema = Schema({
     required: true,
     emun: ["ADMIN", "TECNICO", "CLIENTE"],
   },
+  personType: {
+    type: String,
+    required: true,
+    emun: ["Persona Juridica", "Persona Natural"],
+  },
   status: {
     type: Boolean,
     default: true,

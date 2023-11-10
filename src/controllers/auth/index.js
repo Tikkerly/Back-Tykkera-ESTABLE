@@ -5,7 +5,6 @@ const { generarJWT, googleVerify } = require("../../helpers");
 
 const login = async (req, res = response) => {
   const { email, password } = req.body;
-
   try {
     // Verificar si el email existe
     const user = await User.findOne({ email });
@@ -32,7 +31,7 @@ const login = async (req, res = response) => {
 
     // Generar el JWT
     const token = await generarJWT(user.id);
-
+    console.log(token);
     res.json({
       user,
       token,
