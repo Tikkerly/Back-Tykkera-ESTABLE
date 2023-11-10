@@ -4,6 +4,7 @@ const TicketSchema = Schema({
   // Consecutivo Interno
   internalConsecutive: {
     type: Number,
+    unique: true,
   },
   description: {
     type: String,
@@ -60,6 +61,20 @@ const TicketSchema = Schema({
     type: Boolean,
     default: false,
   },
+});
+
+TicketSchema.pre("save", async function (next) {
+  if (!this.internalConsecutive) {
+    const lastTicket = await this.constructor.findOne(
+      {},
+      {},
+      { sort: { internalConsecutive: -1 } }
+    );
+    this.internalConsecutive = lastTicket
+      ? lastTicket.internalConsecutive + 1
+      : 1;
+  }
+  next();
 });
 
 module.exports = model("Ticket", TicketSchema);
