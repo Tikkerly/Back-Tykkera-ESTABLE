@@ -11,13 +11,14 @@ const getAllTickets = async (req, res) => {
   }
 };
 
-const getTicketsClient = async (req, res) => {
+// Usuario y tenico pueden listar sus tickets
+const getTicketByUser = async (req, res) => {
   try {
-    const { client_id } = req.params;
+    const { id } = req.params;
 
     const [total, tickets] = await Promise.all([
-      Ticket.countDocuments({ client_id }),
-      Ticket.find({ client_id }),
+      Ticket.countDocuments({ _id: id }),
+      Ticket.find({ _id: id }),
     ]);
 
     return res.status(200).json({ total, tickets });
@@ -28,5 +29,5 @@ const getTicketsClient = async (req, res) => {
 
 module.exports = {
   getAllTickets,
-  getTicketsClient,
+  getTicketByUser,
 };
