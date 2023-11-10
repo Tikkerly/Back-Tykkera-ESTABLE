@@ -7,11 +7,13 @@ const User = require("../../../models/User");
 
 const registerUser = async (req, res) => {
   try {
-    const { username, password, email, rol, img, clientId } = req.body;
+    const { username, password, email, rol, img, clientId, personType } =
+      req.body;
     const encryptedPassword = hashPassword(password);
     const user = new User({
       username,
       password: encryptedPassword,
+      personType,
       email,
       rol,
       img,
@@ -24,7 +26,7 @@ const registerUser = async (req, res) => {
         "El usuario ha sido registrado. ¡Ve al email con el que te registraste para validar el registro!",
     });
   } catch (error) {
-    return res.status(400).json({ message: "Error al registrar el usuario." });
+    return res.status(400).json({ message: error.message });
   }
 };
 

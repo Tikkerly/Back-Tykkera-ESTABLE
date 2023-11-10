@@ -29,7 +29,7 @@ const UserSchema = Schema({
   personType: {
     type: String,
     required: true,
-    emun: ["Persona Juridica", "Persona Natural"],
+    emun: ["Juridica", "Natural"],
   },
   status: {
     type: Boolean,
