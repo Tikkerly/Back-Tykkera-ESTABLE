@@ -1,4 +1,5 @@
 const Ticket = require("../../../models/Ticket");
+const User = require("../../../models/User");
 const getAllTickets = async (req, res) => {
   try {
     const [total, tickets] = await Promise.all([
@@ -15,13 +16,31 @@ const getAllTickets = async (req, res) => {
 const getTicketByUser = async (req, res) => {
   try {
     const { id } = req.params;
+    const user = await User.findOne({ _id: id });
+    if (user) {
+      const { rol } = user;
+      if (rol === "TECNICO") {
+        const [total, tickets] = await Promise.all([
+          Ticket.countDocuments({ technician_id: id }),
+          Ticket.find({ technician_id: id }),
+        ]);
 
-    const [total, tickets] = await Promise.all([
-      Ticket.countDocuments({ _id: id }),
-      Ticket.find({ _id: id }),
-    ]);
+        return res.status(200).json({ total, tickets });
+      }
 
-    return res.status(200).json({ total, tickets });
+      if (rol === "CLIENTE") {
+        const [total, tickets] = await Promise.all([
+          Ticket.countDocuments({ client_id: id }),
+          Ticket.find({ client_id: id }),
+        ]);
+
+        return res.status(200).json({ total, tickets });
+      }
+    }
+
+    return res.status(404).json({
+      message: "Usuario no válido",
+    });
   } catch (error) {
     return res.status(500).send(error);
   }
