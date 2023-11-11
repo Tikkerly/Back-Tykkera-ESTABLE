@@ -17,6 +17,10 @@ const UserSchema = Schema({
   img: {
     type: String,
   },
+  phone: {
+    type: Number,
+    required: [true, "El telefono es obligatorio"],
+  },
   clientId: {
     type: Number,
     required: [true, "El Nit es obligatorio"],

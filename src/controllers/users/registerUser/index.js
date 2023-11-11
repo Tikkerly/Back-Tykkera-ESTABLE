@@ -3,11 +3,12 @@ const {
   sendPasswordRegisterEmail,
 } = require("../../../helpers/index");
 
+
 const User = require("../../../models/User");
 
 const registerUser = async (req, res) => {
   try {
-    const { username, password, email, rol, img, clientId, personType } =
+    const { username, password, email, rol, img, clientId, personType, phone } =
       req.body;
     const encryptedPassword = hashPassword(password);
     const user = new User({
@@ -18,6 +19,7 @@ const registerUser = async (req, res) => {
       rol,
       img,
       clientId,
+      phone
     });
     await user.save();
     sendPasswordRegisterEmail(email);
