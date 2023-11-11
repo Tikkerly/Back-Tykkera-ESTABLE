@@ -1,5 +1,6 @@
 const { hashPassword } = require("./bcrypt/hashPassword");
 const { comparePassword } = require("./bcrypt/comparePassword");
+const { googleVerify } = require("./googleAuth");
 const { generarJWT, validateJWTEmail } = require("./jsonwebtoken");
 const { existEmail, userExistById } = require("./customValidations");
 const {
@@ -11,6 +12,7 @@ module.exports = {
   hashPassword,
   comparePassword,
   generarJWT,
+  googleVerify,
   existEmail,
   userExistById,
   sendPasswordResetEmail,
