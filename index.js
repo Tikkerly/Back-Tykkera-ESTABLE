@@ -1,6 +1,6 @@
 const { dbConnection } = require("./src/database/config");
 const server = require("./src/server");
-const PORT = 3101;
+const PORT = 3001;
 
 async function ConnectDB() {
   await dbConnection();
