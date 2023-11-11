@@ -1,10 +1,9 @@
-const userControllers = require('./userControllers/index');
-/*
-userControllers = {
-    loginUserController,
-    registerUserController
-} */
+const userControllers = require("./users");
+const authControllers = require("./auth");
+const ticketControllers = require("./tickets");
 
 module.exports = {
-    userControllers
-}
+  userControllers,
+  authControllers,
+  ticketControllers,
+};
