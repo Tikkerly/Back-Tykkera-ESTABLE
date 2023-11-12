@@ -32,12 +32,8 @@ const login = async (req, res = response) => {
     // Generar el JWT
     const token = await generarJWT(user.id);
 
-    console.log({
-      ...user,
-      token,
-    })
     res.json({
-      ...user._doc,
+      user,
       token,
     });
   } catch (error) {
@@ -91,7 +87,18 @@ const googleSignin = async (req, res = response) => {
   }
 };
 
+const revalidateToken = async (req, res) => {
+  const { id } = req.body;
+  try {
+    const newToken = await generarJWT(id);
+    res.status(200).json(newToken);
+  } catch (error) {
+    return res.status(400).json({ msg: "Id no valido" });
+  }
+};
+
 module.exports = {
   login,
   googleSignin,
+  revalidateToken,
 };
