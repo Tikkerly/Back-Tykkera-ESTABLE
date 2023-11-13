@@ -9,3 +9,9 @@ router.use("/auth", authRoutes);
 router.use("/tickets", ticketRoutes);
 
 module.exports = router;
+
+
+
+
+
+
