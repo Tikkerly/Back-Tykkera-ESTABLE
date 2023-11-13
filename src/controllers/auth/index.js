@@ -17,7 +17,13 @@ const login = async (req, res = response) => {
     // SI el usuario está activo
     if (!user.status) {
       return res.status(400).json({
-        msg: "Usuario / Password no son correctos - estado: false",
+        msg: "Usuario / Estado: Inactivo",   
+      });
+    }
+
+    if (!user.activeRegister) {
+      return res.status(400).json({
+        msg: "Registro: Confirme su registro",  
       });
     }
 
