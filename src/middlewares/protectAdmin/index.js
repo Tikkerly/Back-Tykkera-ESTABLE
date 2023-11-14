@@ -6,7 +6,7 @@ const adminRole = (req, res, next) => {
   }
 
   const { rol, username } = req.user;
-  if (rol !== "MASTER") {
+  if (rol !== "ADMIN") {
     return res.status(401).json({
       msg: `${username} no es administrador - No puede hacer esto`,
     });
