@@ -28,7 +28,7 @@ const UserSchema = Schema({
   rol: {
     type: String,
     required: true,
-    emun: ["ADMIN", "TECNICO", "CLIENTE"],
+    emun: ["ADMIN", "TECNICO", "CLIENTE", "MASTER"],
   },
   personType: {
     type: String,
