@@ -10,7 +10,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const sendPasswordResetEmail = (email, token) => {
+const sendPasswordResetEmail = (email, id) => {
   const htmlReset = `
   <!DOCTYPE html>
 <html lang="es">
@@ -42,7 +42,7 @@ const sendPasswordResetEmail = (email, token) => {
 </head>
 <body>
     <p>Por favor, visita el siguiente enlace para restablecer tu contraseña:</p>
-    <p><a href="http://localhost:5173/user/passwordrecovery/${token}">Restablecer Contraseña</a></p>
+    <p><a href="http://localhost:3001/user/passwordrecovery/${id}">Restablecer Contraseña</a></p>
     <img src="https://res.cloudinary.com/drteukykt/image/upload/v1699535975/ge2dbgr8lrvsdjeykyus.png" alt="Logo" width="200">
 </body>
 </html>
@@ -64,7 +64,7 @@ const sendPasswordResetEmail = (email, token) => {
     }
   });
 };
-const sendPasswordRegisterEmail = (email, token) => {
+const sendPasswordRegisterEmail = (email, id) => {
   const htmlRegister = `
   <!DOCTYPE html>
 <html lang="es">
@@ -96,7 +96,7 @@ const sendPasswordRegisterEmail = (email, token) => {
 </head>
 <body>
     <p>Por favor, visita el siguiente enlace para confirmar tu registro en nuestra plataforma:</p>
-    <p><a href="http://localhost:5173/user/activeuser/${email}">Confirmar el registro</a></p>
+    <p><a href="http://localhost:3000/useractivator/${id}">Confirmar el registro</a></p>
     <img src="https://res.cloudinary.com/drteukykt/image/upload/v1699535975/ge2dbgr8lrvsdjeykyus.png" alt="Logo" width="200">
 </body>
 </html>
