@@ -1,27 +1,53 @@
 const path = require("path");
-const { hashPassword, sendPasswordRegisterEmail } = require("../../../helpers");
-const { add, format } = require('date-fns')
+const fs = require("fs");
+const {
+  hashPassword,
+  sendPasswordRegisterEmail,
+  uploadFile,
+} = require("../../../helpers");
+const { add, format } = require("date-fns");
 
 const User = require("../../../models/User");
+const cloudinary = require("cloudinary").v2;
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY_CLOUD,
+  api_secret: process.env.API_SECRET_CLOUD,
+});
 
 const registerUser = async (req, res) => {
   const actualDate = new Date();
-  const endDate = add(actualDate, { days: 30 })
-  const trialStartDate = format(actualDate, 'dd/MM/yy');
-  const trialEndDate = format(endDate, 'dd/MM/yy')
+  const endDate = add(actualDate, { days: 30 });
+  const trialStartDate = format(actualDate, "dd/MM/yy");
+  const trialEndDate = format(endDate, "dd/MM/yy");
   try {
-    const {
-      username,
-      password,
-      email,
-      NIT,
-      img,
-      personType,
-      phone,
-      address,
-    } = req.body;
+    const { username, password, email, nit, img, personType, phone, address } =
+      req.body;
 
     const encryptedPassword = hashPassword(password);
+
+    const fileName = await uploadFile(req.files, undefined, "imgs");
+
+    const rutaCarpetaUploads = path.join(
+      __dirname,
+      "..",
+      "..",
+      "..",
+      "uploads",
+      "imgs",
+      fileName
+    );
+
+    const { secure_url } = await cloudinary.uploader.upload(
+      rutaCarpetaUploads,
+      {
+        folder: `imgs/${username}`,
+      },
+      (result, error) => {
+        console.log(error);
+      }
+    );
 
     const user = new User({
       username,
@@ -29,14 +55,28 @@ const registerUser = async (req, res) => {
       personType,
       email,
       address,
-      NIT,
-      img,
+      nit,
+      img: secure_url,
       phone,
       trialStartDate,
       trialEndDate,
     });
+
     await user.save();
     sendPasswordRegisterEmail(email, user._id);
+
+    if (fs.existsSync(rutaCarpetaUploads)) {
+      // Borrar el archivo
+      fs.unlink(rutaCarpetaUploads, (error) => {
+        if (error) {
+          console.error("Error al borrar el archivo:", error);
+        } else {
+          console.log("Archivo borrado exitosamente.");
+        }
+      });
+    } else {
+      console.log("El archivo no existe.");
+    }
     return res.status(200).json({
       message:
         "El usuario ha sido registrado. ¡Ve al email con el que te registraste para validar el registro!",
@@ -52,7 +92,9 @@ const validateRegister = async (req, res) => {
     const user = await User.findById(id);
     user.activeRegister = true;
     user.save();
-    return res.status(200).json({ msg: "Usuario Validado con exito", user: user });
+    return res
+      .status(200)
+      .json({ msg: "Usuario Validado con exito", user: user });
   } catch (error) {
     return res.status(400).json({ msg: "Error al validar registro" });
   }

@@ -1,16 +1,23 @@
 const { Router } = require("express");
 const userRoutes = Router();
 const { userControllers } = require("../../controllers");
-const { validarJWT, adminRole, fieldsValidate } = require("../../middlewares/index");
+const {
+  validarJWT,
+  adminRole,
+  fieldsValidate,
+} = require("../../middlewares/index");
 const { check } = require("express-validator");
-const { existEmail, userExistById } = require("../../helpers/customValidations/index");
+const {
+  existEmail,
+  userExistById,
+} = require("../../helpers/customValidations/index");
 
 userRoutes.get("/", validarJWT, adminRole, userControllers.getUsers);
 
 userRoutes.post(
   "/registeruser",
   [
-    check("NIT", "El NIT es obligatorio").not().isEmpty(),
+    check("nit", "El NIT es obligatorio").not().isEmpty(),
     check("username", "EL nombre es obligatorio").not().isEmpty(),
     check("email", "EL email es obligatorio").not().isEmpty(),
     check("email").custom(existEmail),
