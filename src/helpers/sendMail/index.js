@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
@@ -12,9 +12,15 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const sendPasswordResetEmail = (email, id) => {
-  const pathname = path.join(__dirname, '../../htmlResponses/forgotPassword.html');
-  const htmlReset = fs.readFileSync(pathname).toString().replace('${dynamicLink}', `${id}`)
+const sendPasswordResetEmail = (email, token) => {
+  const pathname = path.join(
+    __dirname,
+    "../../htmlResponses/forgotPassword.html"
+  );
+  const htmlReset = fs
+    .readFileSync(pathname)
+    .toString()
+    .replace("${dynamicLink}", `${token}`);
   const mailOptions = {
     from: "Recuperar Contraseña<tikkerly@gmail.com>",
     to: email,
@@ -33,8 +39,14 @@ const sendPasswordResetEmail = (email, id) => {
 };
 
 const sendPasswordRegisterEmail = (email, id) => {
-  const pathname = path.join(__dirname, '../../htmlResponses/registerValidation.html')
-  const htmlRegister = fs.readFileSync(pathname).toString().replace('${dynamicLink}', `${id}`);
+  const pathname = path.join(
+    __dirname,
+    "../../htmlResponses/registerValidation.html"
+  );
+  const htmlRegister = fs
+    .readFileSync(pathname)
+    .toString()
+    .replace("${dynamicLink}", `${id}`);
   const mailOptions = {
     from: "Confirmar Registro <tikkerly@gmail.com>",
     to: email,

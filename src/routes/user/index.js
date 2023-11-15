@@ -72,12 +72,7 @@ userRoutes.delete(
 
 userRoutes.post(
   "/forgotpassword",
-  [
-    check("id", "El id no es valido").isMongoId(),
-    check("email").custom(existEmail),
-    check("email", "EL email es obligatorio").not().isEmpty(),
-    fieldsValidate,
-  ],
+  [check("email", "EL email es obligatorio").not().isEmpty(), fieldsValidate],
   userControllers.forgotPassword
 );
 userRoutes.post("/passwordrecovery", userControllers.passwordRecovery);
