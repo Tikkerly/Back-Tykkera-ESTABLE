@@ -8,10 +8,10 @@ const editUser = async (req, res) => {
     if (password) {
       rest.password = hashPassword(password);
     }
-    const user = await User.findByIdAndUpdate(id, rest);
+    const user = await User.findByIdAndUpdate(id, rest, { new: true });
     return res
       .status(200)
-      .json({ message: "El usuario ha sido editado con exito" });
+      .json(user);
   } catch (error) {
     return res.status(400).json({ message: error.message });
   }
