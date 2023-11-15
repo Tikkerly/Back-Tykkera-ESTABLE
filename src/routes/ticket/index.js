@@ -1,23 +1,14 @@
 const ticketRoutes = require("express").Router();
 const { ticketControllers } = require("../../controllers/index");
 const { check } = require("express-validator");
-const {
-  validarJWT,
-  adminRole,
-  fieldsValidate,
-} = require("../../middlewares/index");
+const { validarJWT, fieldsValidate } = require("../../middlewares/index");
 
-ticketRoutes.get("/", validarJWT, adminRole, ticketControllers.getAllTickets);
+ticketRoutes.get("/", validarJWT, ticketControllers.getAllTickets);
 ticketRoutes.get("/:id", validarJWT, ticketControllers.getTicketByUser);
 
 ticketRoutes.post(
   "/registerticket",
   validarJWT,
-  [
-    check("description", "La descripción es obligatoria").not().isEmpty(),
-    check("client_id", "El cliente es obligatorio").not().isEmpty(),
-    fieldsValidate,
-  ],
   ticketControllers.registerTicket
 );
 
