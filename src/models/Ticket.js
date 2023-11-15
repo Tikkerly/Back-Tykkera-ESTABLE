@@ -6,47 +6,47 @@ const TicketSchema = Schema({
   },
   serviceType: {
     type: String,
-    required: [true, 'Se requiere especificar el tipo de servicio.']
+    required: [true, "Se requiere especificar el tipo de servicio."],
   },
   serviceDescription: {
     type: String,
-    required: [true, 'Se requiere una descripción del servicio.']
+    required: [true, "Se requiere una descripción del servicio."],
   },
   registerDate: {
     type: String,
-    required: [true, 'Se requiere una fecha de registro.']
+    required: [true, "Se requiere una fecha de registro."],
   },
   startDate: {
     type: String,
-    required: [true, 'Se requiere una fecha de agendamiento.']
+    required: [true, "Se requiere una fecha de agendamiento."],
   },
   endDate: {
     type: String,
-    default: '',
+    default: "",
   },
   ammount: {
     type: Number,
-    required: [true, 'Se requiere un monto.']
+    required: [true, "Se requiere un monto."],
   },
   cost: {
     type: Number,
-    required: [true, 'Se requiere un costo.'],
+    required: [true, "Se requiere un costo."],
   },
   utility: {
     type: Number,
-    required: [true, 'Se requiere especificar la utilidad.']
+    required: [true, "Se requiere especificar la utilidad."],
   },
   others: {
     type: Number,
-    required: [true, 'Se requiere especificar otros costos.']
+    required: [true, "Se requiere especificar otros costos."],
   },
   IVA: {
     type: Number,
-    required: [true, 'Se requiere especificar el IVA.']
+    required: [true, "Se requiere especificar el IVA."],
   },
   paymentMethod: {
     type: String,
-    required: [true, 'Se requiere especificar el tipo de pago.']
+    required: [true, "Se requiere especificar el tipo de pago."],
   },
   status: {
     type: Boolean,
@@ -54,29 +54,37 @@ const TicketSchema = Schema({
   },
   ticketStatus: {
     type: String,
-    enum: ['Pendiente', 'Aprobado', 'Cancelado', 'En proceso', 'Completado', 'Cerrado', 'Rechazado'],
-    default: 'Pendiente',
+    enum: [
+      "Pendiente",
+      "Aprobado",
+      "Cancelado",
+      "En proceso",
+      "Completado",
+      "Cerrado",
+      "Rechazado",
+    ],
+    default: "Pendiente",
   },
   company_id: {
     type: Schema.Types.ObjectId,
     ref: "User",
-    required: [true, 'Es obligatorio asignar la compañía.']
+    required: [true, "Es obligatorio asignar la compañía."],
   },
   serviceClient_id: {
     type: Schema.Types.ObjectId,
     ref: "ServiceAgent",
-    required: [true, 'Es obligatorio asignar un cliente de servicio.']
+    required: [true, "Es obligatorio asignar un cliente de servicio."],
   },
   technician_id: {
     type: Schema.Types.ObjectId,
     ref: "Technician",
-    required: [true, 'Es obligatorio asignar un técnico.']
+    required: [true, "Es obligatorio asignar un técnico."],
   },
   finalClient_id: {
     type: Schema.Types.ObjectId,
     ref: "FinalClient",
-    required: [true, "Es obligatorio asignar un cliente final."]
-  }
+    required: [true, "Es obligatorio asignar un cliente final."],
+  },
 });
 
 TicketSchema.pre("save", async function (next) {
