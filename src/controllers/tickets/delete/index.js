@@ -2,21 +2,17 @@ const Ticket = require("../../../models/Ticket");
 
 const deleteTicket = async (req, res) => {
   try {
-    const { id: _id } = req.params;
-    const ticket = await Ticket.findOneAndUpdate({ _id }, { isDeleted: true });
+    const { id } = req.params;
+    const updateTicket = await Ticket.findByIdAndUpdate(id, { status: false });
 
-    return ticket
-      ? res.status(200).json({
-          message: "La operación ha sido completada con éxito",
-        })
+    return updateTicket
+      ? res.status(200).json("El ticket ha sido eliminado con éxito")
       : res.status(400).json({
           message:
-            "Error al procesar la operación. El consecutivo interno proporcionado es incorrecto.",
+            "Error al eliminar el ticket. Intente otra vez o contacte con un administrador",
         });
-  } catch (error) {
-    return res.status(500).json({
-      message: "Error al borrar el ticket",
-    });
+  } catch ({ message }) {
+    return res.status(500).json({ message });
   }
 };
 

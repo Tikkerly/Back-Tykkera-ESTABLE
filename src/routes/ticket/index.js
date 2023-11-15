@@ -3,8 +3,12 @@ const { ticketControllers } = require("../../controllers/index");
 const { check } = require("express-validator");
 const { validarJWT, fieldsValidate } = require("../../middlewares/index");
 
-ticketRoutes.get("/", validarJWT, ticketControllers.getAllTickets);
-ticketRoutes.get("/:id", validarJWT, ticketControllers.getTicketByUser);
+ticketRoutes.get(
+  "/company/:id",
+  validarJWT,
+  ticketControllers.getTicketsByUser
+);
+ticketRoutes.get("/agent/:id", validarJWT, ticketControllers.getTicketsByAgent);
 
 ticketRoutes.post(
   "/registerticket",
