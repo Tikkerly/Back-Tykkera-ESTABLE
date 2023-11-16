@@ -1,26 +1,33 @@
 const path = require("path");
+const fs = require("fs");
 const {
   hashPassword,
   sendPasswordRegisterEmail,
   uploadFile,
 } = require("../../../helpers");
+const { add, format } = require("date-fns");
 
+const User = require("../../../models/User");
 const cloudinary = require("cloudinary").v2;
 
 cloudinary.config({
-  cloud_name: "drteukykt",
-  api_key: "341428778955149",
-  api_secret: "XnHkABuc9YoiNtTswQO4qddPB10",
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY_CLOUD,
+  api_secret: process.env.API_SECRET_CLOUD,
 });
 
-const User = require("../../../models/User");
-
 const registerUser = async (req, res) => {
+  const actualDate = new Date();
+  const endDate = add(actualDate, { days: 30 });
+  const trialStartDate = format(actualDate, "dd/MM/yy");
+  const trialEndDate = format(endDate, "dd/MM/yy");
   try {
-    const { username, password, email, rol, img, clientId, personType, phone } =
+    const { username, password, email, nit, img, personType, phone, address } =
       req.body;
     const encryptedPassword = hashPassword(password);
-    const name = await uploadFile(req.files, undefined, "imgs");
+
+    const fileName = await uploadFile(req.files, undefined, "imgs");
+
     const rutaCarpetaUploads = path.join(
       __dirname,
       "..",
@@ -28,7 +35,7 @@ const registerUser = async (req, res) => {
       "..",
       "uploads",
       "imgs",
-      name
+      fileName
     );
     const { secure_url } = await cloudinary.uploader.upload(
       rutaCarpetaUploads,
@@ -44,13 +51,28 @@ const registerUser = async (req, res) => {
       password: encryptedPassword,
       personType,
       email,
-      rol,
+      address,
+      nit,
       img: secure_url,
-      clientId,
       phone,
+      trialStartDate,
+      trialEndDate,
     });
     await user.save();
     sendPasswordRegisterEmail(email, user._id);
+
+    if (fs.existsSync(rutaCarpetaUploads)) {
+      // Borrar el archivo
+      fs.unlink(rutaCarpetaUploads, (error) => {
+        if (error) {
+          console.error("Error al borrar el archivo:", error);
+        } else {
+          console.log("Archivo borrado exitosamente.");
+        }
+      });
+    } else {
+      console.log("El archivo no existe.");
+    }
     return res.status(200).json({
       message:
         "El usuario ha sido registrado. ¡Ve al email con el que te registraste para validar el registro!",
@@ -63,7 +85,6 @@ const registerUser = async (req, res) => {
 const validateRegister = async (req, res) => {
   try {
     const { id } = req.params;
-    console.log(id);
     const user = await User.findById(id);
     user.activeRegister = true;
     user.save();

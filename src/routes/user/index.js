@@ -17,8 +17,7 @@ userRoutes.get("/", validarJWT, adminRole, userControllers.getUsers);
 userRoutes.post(
   "/registeruser",
   [
-    check("clientId", "El NIT es obligatorio").not().isEmpty(),
-    check("rol", "EL rol es obligatorio").not().isEmpty(),
+    check("nit", "El NIT es obligatorio").not().isEmpty(),
     check("username", "EL nombre es obligatorio").not().isEmpty(),
     check("email", "EL email es obligatorio").not().isEmpty(),
     check("email").custom(existEmail),
@@ -73,12 +72,7 @@ userRoutes.delete(
 
 userRoutes.post(
   "/forgotpassword",
-  [
-    check("id", "El id no es valido").isMongoId(),
-    check("email").custom(existEmail),
-    check("email", "EL email es obligatorio").not().isEmpty(),
-    fieldsValidate,
-  ],
+  [check("email", "EL email es obligatorio").not().isEmpty(), fieldsValidate],
   userControllers.forgotPassword
 );
 userRoutes.post("/passwordrecovery", userControllers.passwordRecovery);
