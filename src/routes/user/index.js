@@ -3,7 +3,6 @@ const userRoutes = Router();
 const { userControllers } = require("../../controllers");
 const {
   validarJWT,
-  adminRole,
   fieldsValidate,
 } = require("../../middlewares/index");
 const { check } = require("express-validator");
@@ -12,7 +11,7 @@ const {
   userExistById,
 } = require("../../helpers/customValidations/index");
 
-userRoutes.get("/", validarJWT, adminRole, userControllers.getUsers);
+userRoutes.get("/", validarJWT, userControllers.getUsers);
 
 userRoutes.post(
   "/registeruser",
@@ -61,7 +60,6 @@ userRoutes.get(
 userRoutes.delete(
   "/deleteuser/:id",
   validarJWT,
-  adminRole,
   [
     check("id", "El id no es valido").isMongoId(),
     check("id").custom(userExistById),

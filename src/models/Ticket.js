@@ -52,6 +52,10 @@ const TicketSchema = Schema({
     type: Boolean,
     default: true,
   },
+  ispaid: {
+    type: Boolean,
+    default: false,
+  },
   ticketStatus: {
     type: String,
     enum: [
