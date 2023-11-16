@@ -7,9 +7,8 @@ const uploadFile = (
   carpeta = ""
 ) => {
   return new Promise((resolve, reject) => {
-    const file = files.img[0];
+    const file = files.img;
     const { name } = file;
-    console.log(name);
     const shortName = name.split(".");
     const extension = shortName[shortName.length - 1];
 
@@ -23,7 +22,6 @@ const uploadFile = (
       carpeta,
       tempName
     );
-
     file.mv(uploadPath, (err) => {
       if (err) {
         reject(err);

@@ -14,10 +14,6 @@ const ServiceAgentSchema = Schema({
         type: String,
         required: [true, 'Se requiere una contraseña.']
     },
-    NIT: {
-        type: String,
-        required: [true, 'Se requiere un NIT.'],
-    },
     document: {
         type: String,
         required: [true, 'Se requiere un documento de identificación.']
@@ -34,7 +30,11 @@ const ServiceAgentSchema = Schema({
         type: Schema.Types.ObjectId,
         ref: "User",
         required: [true, 'Es obligatorio asignar la compañía.']
-    }
+    },
+    img: {
+        type: String,
+        default: "",
+      },
 })
 
 ServiceAgentSchema.methods.toJSON = function () {

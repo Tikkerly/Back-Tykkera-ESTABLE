@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 
 const FinalClientSchema = Schema({
-    name: {
+    username: {
         type: String,
         required: [true, 'Se requiere un nombre.']
     },
@@ -13,6 +13,10 @@ const FinalClientSchema = Schema({
         type: String,
         required: [true, 'Se requiere un documento de identificación.']
     },
+    img: {
+        type: String,
+        default: "",
+      },
     documentType: {
         type: String,
         required: [true, 'Se requiere especificar el tipo de documento.']
