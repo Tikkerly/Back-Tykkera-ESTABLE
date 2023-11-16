@@ -19,11 +19,8 @@ const registerUser = async (req, res) => {
   try {
     const { username, password, email, rol, img, clientId, personType, phone } =
       req.body;
-
     const encryptedPassword = hashPassword(password);
-
     const name = await uploadFile(req.files, undefined, "imgs");
-
     const rutaCarpetaUploads = path.join(
       __dirname,
       "..",
@@ -33,7 +30,6 @@ const registerUser = async (req, res) => {
       "imgs",
       name
     );
-
     const { secure_url } = await cloudinary.uploader.upload(
       rutaCarpetaUploads,
       {
@@ -43,7 +39,6 @@ const registerUser = async (req, res) => {
         console.log(error);
       }
     );
-
     const user = new User({
       username,
       password: encryptedPassword,
@@ -54,9 +49,7 @@ const registerUser = async (req, res) => {
       clientId,
       phone,
     });
-
     await user.save();
-
     sendPasswordRegisterEmail(email, user._id);
     return res.status(200).json({
       message:

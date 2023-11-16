@@ -9,6 +9,7 @@ const uploadFile = (
   return new Promise((resolve, reject) => {
     const file = files.img[0];
     const { name } = file;
+    console.log(name);
     const shortName = name.split(".");
     const extension = shortName[shortName.length - 1];
 
