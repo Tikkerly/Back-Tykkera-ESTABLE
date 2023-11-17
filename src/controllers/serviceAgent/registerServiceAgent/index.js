@@ -21,14 +21,14 @@ const registerServiceAgent = async (req, res) => {
       username,
       email,
       password,
-      img,
+      // img,
       document,
       phone,
       company_id,
     } = req.body;
     const encryptedPassword = hashPassword(password);
 
-    const fileName = await uploadFile(req.files, undefined, "imgs");
+    // const fileName = await uploadFile(req.files, undefined, "imgs");
 
     const rutaCarpetaUploads = path.join(
       __dirname,
@@ -37,7 +37,7 @@ const registerServiceAgent = async (req, res) => {
       "..",
       "uploads",
       "imgs",
-      fileName
+      // fileName
     );
 
     // const { secure_url } = await cloudinary.uploader.upload(
@@ -90,9 +90,9 @@ const registerServiceAgent = async (req, res) => {
 const validateRegister = async (req, res) => {
   try {
     const { id } = req.params;
-    const user = await User.findById(id);
-    user.activeRegister = true;
-    user.save();
+    const serviceAgent = await ServiceAgent.findById(id);
+    serviceAgent.activeRegister = true;
+    serviceAgent.save();
     return res
       .status(200)
       .json({ msg: "Usuario Validado con exito", user: user });
