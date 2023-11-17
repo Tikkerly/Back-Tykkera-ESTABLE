@@ -8,15 +8,15 @@ const registerTicket = async (req, res) => {
     const {
       serviceType,
       serviceDescription,
-      ammount,
-      cost,
       startDate,
-      others,
-      paymentMethod,
       company_id,
       technician_id,
       finalClient_id,
-      serviceClient_id
+      serviceClient_id,
+      paymentMethod,
+      ammount,
+      cost,
+      others,
     } = req.body;
     const utility = ammount-cost-others;
     const IVA = 0.19*ammount;
@@ -40,6 +40,7 @@ const registerTicket = async (req, res) => {
     return res.status(201).json({ message: "Ticket registrado con éxito", });
   }
   catch ({ message }) {
+    console.log(message)
     return res.status(500).json(message);
   }
 };
