@@ -1,5 +1,6 @@
 const path = require("path");
 const fs = require("fs");
+require("dotenv").config();
 const {
   hashPassword,
   sendPasswordRegisterEmail,
@@ -10,6 +11,7 @@ const { add, format } = require("date-fns");
 const User = require("../../../models/User");
 const cloudinary = require("cloudinary").v2;
 
+console.log(process.env.CLOUD_NAME);
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.API_KEY_CLOUD,
@@ -24,6 +26,7 @@ const registerUser = async (req, res) => {
   try {
     const { username, password, email, nit, img, personType, phone, address } =
       req.body;
+
     const encryptedPassword = hashPassword(password);
 
     const fileName = await uploadFile(req.files, undefined, "imgs");
@@ -37,15 +40,14 @@ const registerUser = async (req, res) => {
       "imgs",
       fileName
     );
+
     const { secure_url } = await cloudinary.uploader.upload(
       rutaCarpetaUploads,
       {
         folder: `imgs/${username}`,
-      },
-      (result, error) => {
-        console.log(error);
       }
     );
+
     const user = new User({
       username,
       password: encryptedPassword,
@@ -58,6 +60,8 @@ const registerUser = async (req, res) => {
       trialStartDate,
       trialEndDate,
     });
+    console.log(user);
+
     await user.save();
     sendPasswordRegisterEmail(email, user._id);
 
@@ -78,7 +82,8 @@ const registerUser = async (req, res) => {
         "El usuario ha sido registrado. ¡Ve al email con el que te registraste para validar el registro!",
     });
   } catch (error) {
-    return res.status(400).json({ message: error.message });
+    console.log(error);
+    return res.status(400).json(error);
   }
 };
 

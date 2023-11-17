@@ -1,17 +1,14 @@
 const { Router } = require("express");
 const technicianRoutes = Router();
 const { technicianControllers } = require("../../controllers");
-const {
-  validarJWT,
-  fieldsValidate,
-} = require("../../middlewares/index");
+const { validarJWT, fieldsValidate } = require("../../middlewares/index");
 const { check } = require("express-validator");
 const {
   existEmail,
   userExistById,
 } = require("../../helpers/customValidations/index");
 
-technicianRoutes.get("/", validarJWT, technicianControllers.getTechnicians);
+technicianRoutes.get("/", technicianControllers.getTechnicians);
 
 technicianRoutes.post(
   "/registertechnician",
@@ -23,7 +20,6 @@ technicianRoutes.post(
   ],
   technicianControllers.registerTechnician
 );
-
 
 technicianRoutes.put(
   "/edittechnician/:id",
@@ -57,6 +53,5 @@ technicianRoutes.delete(
   ],
   technicianControllers.deleteTechnician
 );
-
 
 module.exports = technicianRoutes;

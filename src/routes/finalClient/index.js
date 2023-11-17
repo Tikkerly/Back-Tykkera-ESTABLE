@@ -1,17 +1,14 @@
 const { Router } = require("express");
 const finalClientRoutes = Router();
 const { finalClientControllers } = require("../../controllers");
-const {
-  validarJWT,
-  fieldsValidate,
-} = require("../../middlewares/index");
+const { validarJWT, fieldsValidate } = require("../../middlewares/index");
 const { check } = require("express-validator");
 const {
   existEmail,
   userExistById,
 } = require("../../helpers/customValidations/index");
 
-finalClientRoutes.get("/", validarJWT, finalClientControllers.getFinalClients);
+finalClientRoutes.get("/", finalClientControllers.getFinalClients);
 
 finalClientRoutes.post(
   "/registerfinalclient",
@@ -64,6 +61,5 @@ finalClientRoutes.delete(
   ],
   finalClientControllers.deleteFinalClient
 );
-
 
 module.exports = finalClientRoutes;

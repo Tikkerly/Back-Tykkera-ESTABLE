@@ -12,7 +12,7 @@ ticketRoutes.get("/agent/:id", validarJWT, ticketControllers.getTicketsByAgent);
 
 ticketRoutes.post(
   "/registerticket",
-  validarJWT,
+
   ticketControllers.registerTicket
 );
 

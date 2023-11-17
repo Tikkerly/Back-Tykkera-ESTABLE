@@ -1,17 +1,14 @@
 const { Router } = require("express");
 const serviceAgentRoutes = Router();
 const { serviceAgentControllers } = require("../../controllers");
-const {
-  validarJWT,
-  fieldsValidate,
-} = require("../../middlewares/index");
+const { validarJWT, fieldsValidate } = require("../../middlewares/index");
 const { check } = require("express-validator");
 const {
   existEmail,
   userExistById,
 } = require("../../helpers/customValidations/index");
 
-serviceAgentRoutes.get("/", validarJWT, serviceAgentControllers.getServiceAgents);
+serviceAgentRoutes.get("/", serviceAgentControllers.getServiceAgents);
 
 serviceAgentRoutes.post(
   "/registerserviceagent",
@@ -71,6 +68,9 @@ serviceAgentRoutes.post(
   [check("email", "EL email es obligatorio").not().isEmpty(), fieldsValidate],
   serviceAgentControllers.forgotPassword
 );
-serviceAgentRoutes.post("/passwordrecovery", serviceAgentControllers.passwordRecovery);
+serviceAgentRoutes.post(
+  "/passwordrecovery",
+  serviceAgentControllers.passwordRecovery
+);
 
 module.exports = serviceAgentRoutes;
