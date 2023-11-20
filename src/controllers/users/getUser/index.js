@@ -2,9 +2,9 @@ const User = require("../../../models/User");
 
 const getUser = async (req, res) => {
   const { id } = req.params;
+  console.log(id);
   try {
     const user = await User.findById(id);
-    console.log(user)
     return res.status(200).json(user);
   } catch (error) {
     return res.status(500).json({ message: error.message });
