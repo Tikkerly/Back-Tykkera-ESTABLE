@@ -8,7 +8,11 @@ const getTicketsByUser = async (req, res) => {
     const { id } = req.params;
     const [total, tickets] = await Promise.all([
       Ticket.countDocuments({ company_id: id }),
-      Ticket.find({ company_id: id }),
+      Ticket.find({ company_id: id })
+        .populate("company_id")
+        .populate("finalClient_id")
+        .populate("serviceClient_id")
+        .populate("technician_id"),
     ]);
     return res.status(200).json({ total, tickets });
   } catch ({ message }) {
@@ -21,7 +25,11 @@ const getTicketsByAgent = async (req, res) => {
     const { id } = req.params;
     const [total, tickets] = await Promise.all([
       Ticket.countDocuments({ serviceClient_id: id }),
-      Ticket.find({ serviceClient_id: id }),
+      Ticket.find({ serviceClient_id: id })
+        .populate("company_id")
+        .populate("finalClient_id")
+        .populate("serviceClient_id")
+        .populate("technician_id"),
     ]);
     return res.status(200).json({ total, tickets });
   } catch ({ message }) {
