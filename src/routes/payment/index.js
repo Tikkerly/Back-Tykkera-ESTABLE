@@ -17,7 +17,7 @@ paymentRoute.post("/", (req, res) => {
       },
     ],
     back_urls: {
-      success: "http://localhost:3001/api/v1/payment/feedback",
+      success: "http://localhost:3000/user/ispaid",
       failure: "http://localhost:3000/user",
       pending: "http://localhost:3000/user",
     },
@@ -36,13 +36,14 @@ paymentRoute.post("/", (req, res) => {
     });
 });
 
-paymentRoute.get("/feedback", async function (req, res) {
-  const { id } = req.body;
+paymentRoute.post("/feedback/:id", async function (req, res) {
+  const { id } = req.params;
 
   const company = await User.findById(id);
+
   try {
     if (company) {
-      company.ispaid = true;
+      company.isPaid = true;
       company.save();
       res.status(200).json({
         Payment: req.query.payment_id,

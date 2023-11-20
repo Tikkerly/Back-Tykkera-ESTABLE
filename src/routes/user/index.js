@@ -1,10 +1,7 @@
 const { Router } = require("express");
 const userRoutes = Router();
 const { userControllers } = require("../../controllers");
-const {
-  validarJWT,
-  fieldsValidate,
-} = require("../../middlewares/index");
+const { validarJWT, fieldsValidate } = require("../../middlewares/index");
 const { check } = require("express-validator");
 const {
   existEmail,
@@ -46,9 +43,9 @@ userRoutes.put(
   userControllers.editUser
 );
 
-userRoutes.get(
+userRoutes.post(
   "/:id",
-  validarJWT,
+
   [
     check("id", "El id no es valido").isMongoId(),
     check("id").custom(userExistById),

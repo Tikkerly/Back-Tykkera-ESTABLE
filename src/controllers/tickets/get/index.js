@@ -37,7 +37,18 @@ const getTicketsByAgent = async (req, res) => {
   }
 };
 
+const getTicketById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const ticket = await Ticket.findById(id)
+    return res.status(200).json(ticket);  
+  } catch ({message}) {
+    return res.status(500).json({ message });
+  }
+};
+
 module.exports = {
   getTicketsByUser,
   getTicketsByAgent,
+  getTicketById,
 };

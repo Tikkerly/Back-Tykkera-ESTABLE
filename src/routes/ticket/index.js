@@ -8,7 +8,17 @@ ticketRoutes.get(
   validarJWT,
   ticketControllers.getTicketsByUser
 );
-ticketRoutes.get("/agent/:id", validarJWT, ticketControllers.getTicketsByAgent);
+
+ticketRoutes.get(
+  "/agent/:id", 
+  validarJWT, 
+  ticketControllers.getTicketsByAgent
+);
+
+ticketRoutes.get(
+  "/:id",
+  ticketControllers.getTicketById
+);
 
 ticketRoutes.post(
   "/registerticket",
@@ -28,5 +38,7 @@ ticketRoutes.put(
   [check("id", "El id no es válido").isMongoId(), fieldsValidate],
   ticketControllers.updateTicket
 );
+
+
 
 module.exports = ticketRoutes;

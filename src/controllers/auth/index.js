@@ -75,6 +75,7 @@ const googleSignin = async (req, res = response) => {
         address: "Debes actualizar la dirección",
         phone: "Debes actualizar el telefono",
         nit: "debes actualizar el NIT",
+        rol: "Client",
         personType: "Natural",
         trialStartDate,
         trialEndDate,
