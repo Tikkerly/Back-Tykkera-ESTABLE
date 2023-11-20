@@ -22,6 +22,10 @@ const UserSchema = Schema({
     type: String,
     required: [true, "El telefono es obligatorio"],
   },
+  rol: {
+    type: String,
+    enum: ["Admin", "Client"],
+  },
   nit: {
     type: String,
     required: [true, "El Nit es obligatorio"],

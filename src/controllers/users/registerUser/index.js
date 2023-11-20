@@ -23,7 +23,7 @@ const registerUser = async (req, res) => {
   const trialStartDate = format(actualDate, "dd/MM/yy");
   const trialEndDate = format(endDate, "dd/MM/yy");
   try {
-    const { username, password, email, nit, img, personType, phone, address } =
+    const { username, password, email, nit, personType, phone, address } =
       req.body;
 
     const encryptedPassword = hashPassword(password);
@@ -58,8 +58,8 @@ const registerUser = async (req, res) => {
       phone,
       trialStartDate,
       trialEndDate,
+      rol: "Client",
     });
-    console.log(user);
 
     await user.save();
     sendPasswordRegisterEmail(email, user._id);
