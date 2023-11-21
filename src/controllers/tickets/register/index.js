@@ -1,5 +1,7 @@
+const { sendTicketEmail } = require("../../../helpers/sendMail");
 const Ticket = require("../../../models/Ticket");
 const { format } = require("date-fns");
+const User = require("../../../models/User");
 
 const registerTicket = async (req, res) => {
   const actualDate = new Date();
@@ -37,6 +39,10 @@ const registerTicket = async (req, res) => {
       serviceClient_id,
     });
     await ticket.save();
+
+    const user = await User.findById(company_id);
+    //console.log(user);
+    sendTicketEmail(user.email);
 
     return res.status(201).json({ message: "Ticket registrado con éxito" });
   } catch ({ message }) {
