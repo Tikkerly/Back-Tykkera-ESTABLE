@@ -13,14 +13,14 @@ const FinalClientSchema = Schema({
         type: String,
         required: [true, 'Se requiere un documento de identificación.']
     },
+    documentType: {
+        type: String,
+        enum: ["NIT", "DNI", "PASAPORTE"],
+    },
     img: {
         type: String,
         default: "",
       },
-    documentType: {
-        type: String,
-        required: [true, 'Se requiere especificar el tipo de documento.']
-    },
     phone: {
         type: String,
         required: [true, 'Se requiere un número de celular.']
