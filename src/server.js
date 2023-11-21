@@ -8,7 +8,7 @@ require("dotenv").config();
 const server = express();
 
 // Permitir solicitudes desde un dominio específico de Next.js
-const allowedOrigins = ["https://tu-aplicacion-next.vercel.app"]; // Reemplaza con la URL de tu aplicación Next.js
+const allowedOrigins = ["https://https://front-tikkerly.vercel.app/"]; // Reemplaza con la URL de tu aplicación Next.js
 
 const corsOptions = {
   origin: function (origin, callback) {
