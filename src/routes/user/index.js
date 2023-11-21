@@ -23,6 +23,12 @@ userRoutes.post(
   userControllers.registerUser
 );
 userRoutes.post(
+  "/forgotpassword",
+  [check("email", "EL email es obligatorio").not().isEmpty(), fieldsValidate],
+  userControllers.forgotPassword
+);
+userRoutes.post("/passwordrecovery", userControllers.passwordRecovery);
+userRoutes.post(
   "/validateregister/:id",
   // [
   //   check("email", "EL email es obligatorio").not().isEmpty(),
@@ -64,12 +70,5 @@ userRoutes.delete(
   ],
   userControllers.deleteUser
 );
-
-userRoutes.post(
-  "/forgotpassword",
-  [check("email", "EL email es obligatorio").not().isEmpty(), fieldsValidate],
-  userControllers.forgotPassword
-);
-userRoutes.post("/passwordrecovery", userControllers.passwordRecovery);
 
 module.exports = userRoutes;
