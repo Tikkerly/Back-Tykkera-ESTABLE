@@ -10,17 +10,13 @@ const server = express();
 const allowedOrigins = ["http://localhost:3000"]; // Reemplaza con la URL de tu aplicación Next.js
 
 const corsOptions = {
-  origin: function (origin, callback) {
-    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error("Acceso no permitido por CORS"));
-    }
-  },
+  origin: ["https://tu-aplicacion-next.vercel.app", "http://localhost:3000"], // Permitir solicitudes desde tu aplicación Next.js y desde localhost
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
-  optionsSuccessStatus: 200, // Algunos navegadores antiguos (IE11, varios) requieren este código de estado para CORS
+  optionsSuccessStatus: 200,
 };
+
+app.use(cors(corsOptions));
 
 server.use(cors(corsOptions));
 
