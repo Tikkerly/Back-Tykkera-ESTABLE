@@ -5,5 +5,12 @@
         "src": "index.js", 
         "use": "@vercel/node"
       }
+    ],
+    "routes": [
+      {
+        "src": "/api/v1/auth/login",
+        "methods": ["POST"],
+        "dest": "/api/v1/auth/index.js" 
+      }
     ]
   }
