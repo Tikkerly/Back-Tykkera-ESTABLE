@@ -5,10 +5,10 @@ const adminRole = (req, res, next) => {
     });
   }
 
-  const { rol, nombre } = req.user;
+  const { rol, username } = req.user;
   if (rol !== "ADMIN") {
     return res.status(401).json({
-      msg: `${nombre} no es administrador - No puede hacer esto`,
+      msg: `${username} no es administrador - No puede hacer esto`,
     });
   }
 
