@@ -1,8 +1,6 @@
 const path = require("path");
 const fs = require("fs");
-const {
-  uploadFile,
-} = require("../../../helpers");
+const { uploadFile } = require("../../../helpers");
 
 const Technician = require("../../../models/Technician");
 const cloudinary = require("cloudinary").v2;
@@ -29,7 +27,7 @@ const registerTechnician = async (req, res) => {
       serviceClient_id,
       serviceTypes,
     } = req.body;
- 
+
     // const fileName = await uploadFile(req.files, undefined, "imgs");
 
     const rutaCarpetaUploads = path.join(
@@ -38,7 +36,7 @@ const registerTechnician = async (req, res) => {
       "..",
       "..",
       "uploads",
-      "imgs",
+      "imgs"
       // fileName
     );
     // const { secure_url } = await cloudinary.uploader.upload(
@@ -83,9 +81,8 @@ const registerTechnician = async (req, res) => {
         "El usuario ha sido registrado. ¡Ve al email con el que te registraste para validar el registro!",
     });
   } catch (error) {
-    return res.status(400).json({ message: error.message });
+    return res.status(400).json(error);
   }
 };
-
 
 module.exports = { registerTechnician };

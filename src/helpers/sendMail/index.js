@@ -66,5 +66,35 @@ const sendPasswordRegisterEmail = (email, id) => {
     }
   });
 };
+const sendTicketEmail = (email) => {
+  const pathname = path.join(
+    __dirname,
+    "../../htmlResponses/ticketCreate.html"
+  );
+  const htmlRegister = fs.readFileSync(pathname).toString();
+  //.replace("${dynamicLink}", `${id}`);
+  const mailOptions = {
+    from: "Creaste un ticket <tikkerly@gmail.com>",
+    to: email,
+    subject: "Creaste un ticket",
+    html: htmlRegister,
+  };
 
-module.exports = { sendPasswordResetEmail, sendPasswordRegisterEmail };
+  return transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log(error);
+      res.status(500).json({ error: "Error al enviar el correo" });
+    } else {
+      console.log("Correo enviado: " + info.response);
+      res
+        .status(200)
+        .json({ message: "Correo de bienvenida enviado correctamente" });
+    }
+  });
+};
+
+module.exports = {
+  sendPasswordResetEmail,
+  sendPasswordRegisterEmail,
+  sendTicketEmail,
+};

@@ -6,7 +6,6 @@ const fileUpload = require("express-fileupload");
 require("dotenv").config();
 
 const server = express();
-
 server.use(express.json());
 server.use(cors());
 server.use(morgan("dev"));

@@ -15,7 +15,7 @@ technicianRoutes.post(
   [
     check("username", "EL nombre es obligatorio").not().isEmpty(),
     check("email", "El email es obligatorio").not().isEmpty(),
-    check("email").custom(existEmail),
+
     fieldsValidate,
   ],
   technicianControllers.registerTechnician
