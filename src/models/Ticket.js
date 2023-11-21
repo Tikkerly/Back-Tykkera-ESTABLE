@@ -1,65 +1,93 @@
 const { Schema, model } = require("mongoose");
 
 const TicketSchema = Schema({
-  // Consecutivo Interno
   internalConsecutive: {
     type: Number,
-    unique: true,
   },
-  description: {
+  serviceType: {
     type: String,
-    required: [true, "La descripción es obligatoria"],
+    required: [true, "Se requiere especificar el tipo de servicio."],
+  },
+  serviceDescription: {
+    type: String,
+    required: [true, "Se requiere una descripción del servicio."],
+  },
+  registerDate: {
+    type: String,
+    required: [true, "Se requiere una fecha de registro."],
+  },
+  startDate: {
+    type: String,
+    required: [true, "Se requiere una fecha de agendamiento."],
+  },
+  endDate: {
+    type: String,
+    default: "",
+  },
+  ammount: {
+    type: Number,
+    required: [true, "Se requiere un monto."],
+  },
+  cost: {
+    type: Number,
+    required: [true, "Se requiere un costo."],
+  },
+  utility: {
+    type: Number,
+    required: [true, "Se requiere especificar la utilidad."],
+  },
+  others: {
+    type: Number,
+    required: [true, "Se requiere especificar otros costos."],
+  },
+  IVA: {
+    type: Number,
+    required: [true, "Se requiere especificar el IVA."],
+  },
+  paymentMethod: {
+    type: String,
+    required: [true, "Se requiere especificar el tipo de pago."],
   },
   status: {
+    type: Boolean,
+    default: true,
+  },
+  ispaid: {
+    type: Boolean,
+    default: false,
+  },
+  ticketStatus: {
     type: String,
     enum: [
       "Pendiente",
       "Aprobado",
       "Cancelado",
-      "En progreso",
+      "En proceso",
       "Completado",
       "Cerrado",
       "Rechazado",
     ],
     default: "Pendiente",
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-  client_id: {
+  company_id: {
     type: Schema.Types.ObjectId,
     ref: "User",
-    required: [true, "EL cliente es obligatorio"],
+    required: [true, "Es obligatorio asignar la compañía."],
+  },
+  serviceClient_id: {
+    type: Schema.Types.ObjectId,
+    ref: "ServiceAgent",
+    required: [true, "Es obligatorio asignar un cliente de servicio."],
   },
   technician_id: {
     type: Schema.Types.ObjectId,
-    ref: "User",
+    ref: "Technician",
+    required: [true, "Es obligatorio asignar un técnico."],
   },
-  //   Crear modelo de servicios
-  service: {
+  finalClient_id: {
     type: Schema.Types.ObjectId,
-    ref: "User",
-  },
-  realizationDate: {
-    type: Date,
-  },
-  image: {
-    type: String,
-  },
-  observations: {
-    type: String,
-  },
-
-  technicianRating: {
-    type: Number,
-    min: 0,
-    max: 5,
-    default: 0,
-  },
-  isDeleted: {
-    type: Boolean,
-    default: false,
+    ref: "FinalClient",
+    required: [true, "Es obligatorio asignar un cliente final."],
   },
 });
 
@@ -76,5 +104,10 @@ TicketSchema.pre("save", async function (next) {
   }
   next();
 });
+
+TicketSchema.methods.toJSON = function () {
+  const { __v, ...user } = this.toObject();
+  return user;
+};
 
 module.exports = model("Ticket", TicketSchema);

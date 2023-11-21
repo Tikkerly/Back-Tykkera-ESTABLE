@@ -16,19 +16,19 @@ const UserSchema = Schema({
   },
   img: {
     type: String,
+    default: "",
   },
   phone: {
-    type: Number,
+    type: String,
     required: [true, "El telefono es obligatorio"],
-  },
-  clientId: {
-    type: Number,
-    required: [true, "El Nit es obligatorio"],
   },
   rol: {
     type: String,
-    required: true,
-    emun: ["ADMIN", "TECNICO", "CLIENTE"],
+    enum: ["Admin", "Client"],
+  },
+  nit: {
+    type: String,
+    required: [true, "El Nit es obligatorio"],
   },
   personType: {
     type: String,
@@ -39,11 +39,31 @@ const UserSchema = Schema({
     type: Boolean,
     default: true,
   },
+  address: {
+    type: String,
+    required: [true, "La dirección es obligatoria."],
+  },
+  trialPeriod: {
+    type: Boolean,
+    default: true,
+  },
+  trialStartDate: {
+    type: String,
+    required: [true, "Debe haber un comienzo del periodo de prueba."],
+  },
+  trialEndDate: {
+    type: String,
+    required: [true, "Debe haber una finalización del periodo de prueba,"],
+  },
   google: {
     type: Boolean,
     default: false,
   },
   activeRegister: {
+    type: Boolean,
+    default: false,
+  },
+  isPaid: {
     type: Boolean,
     default: false,
   },
