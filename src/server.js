@@ -16,7 +16,7 @@ const corsOptions = {
   optionsSuccessStatus: 200,
 };
 
-app.use(cors(corsOptions));
+server.use(cors(corsOptions));
 
 server.use(cors(corsOptions));
 
