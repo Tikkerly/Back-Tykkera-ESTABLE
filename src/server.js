@@ -7,11 +7,21 @@ require("dotenv").config();
 
 const server = express();
 
+const allowedOrigins = ["http://localhost:3000"]; // Reemplaza con la URL de tu aplicación Next.js
+
 const corsOptions = {
-  origin: "http://localhost:3000",
-  credentials: true, //access-control-allow-credentials:true
-  optionSuccessStatus: 200,
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Acceso no permitido por CORS"));
+    }
+  },
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+  optionsSuccessStatus: 200, // Algunos navegadores antiguos (IE11, varios) requieren este código de estado para CORS
 };
+
 server.use(cors(corsOptions));
 
 server.use(express.json());
