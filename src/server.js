@@ -7,8 +7,15 @@ require("dotenv").config();
 
 const server = express();
 
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
+
 server.use(express.json());
-server.use(cors());
+//server.use(cors());
 server.use(morgan("dev"));
 server.use(
   fileUpload({
