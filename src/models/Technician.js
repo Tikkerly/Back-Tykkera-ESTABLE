@@ -15,7 +15,7 @@ const TechnicianSchema = Schema({
     },
     documentType: {
         type: String,
-        required: [true, 'Se requiere especificar el tipo de documento.']
+        enum: ["NIT", "DNI", "PASAPORTE"],
     },
     phone: {
         type: String,
@@ -31,7 +31,7 @@ const TechnicianSchema = Schema({
     },
     paymentMethods: {
         type: String,
-        required: [true, 'Se requiere añadir métodos de pago que recibe el técnico.']
+        enum: ['Efectivo', 'Transferencia']
     },
     accountNumber: {
         type: String,
