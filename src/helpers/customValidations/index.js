@@ -7,6 +7,13 @@ const existEmail = async (email = "") => {
   }
 };
 
+const existDocument = async (document = "") => {
+  const user = await User.findOne({ document });
+  if (user) {
+    throw new Error(`El documento ${document} ya existe`);
+  }
+};
+
 const userExistById = async (id) => {
   const userExist = await User.findById(id);
   if (!userExist) {
@@ -17,4 +24,5 @@ const userExistById = async (id) => {
 module.exports = {
   existEmail,
   userExistById,
+  existDocument,
 };
