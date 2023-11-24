@@ -18,10 +18,6 @@ const ServiceAgentSchema = Schema({
         type: String,
         required: [true, 'Se requiere un documento de identificación.']
     },
-    documentType: {
-        type: String,
-        enum: ["NIT", "DNI", "PASAPORTE"],
-    },
     phone: {
         type: String,
         required: [true, 'Se requiere un número de contacto.']

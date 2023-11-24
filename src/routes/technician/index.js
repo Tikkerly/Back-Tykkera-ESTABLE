@@ -6,7 +6,6 @@ const { check } = require("express-validator");
 const {
   existEmail,
   userExistById,
-  existDocument,
 } = require("../../helpers/customValidations/index");
 
 technicianRoutes.get("/", technicianControllers.getTechnicians);
@@ -16,8 +15,6 @@ technicianRoutes.post(
   [
     check("username", "EL nombre es obligatorio").not().isEmpty(),
     check("email", "El email es obligatorio").not().isEmpty(),
-    check("document", "El documento de identidad es obligatorio").not().isEmpty(),
-    check("document").custom(existDocument),
 
     fieldsValidate,
   ],

@@ -26,13 +26,9 @@ const UserSchema = Schema({
     type: String,
     enum: ["Admin", "Client"],
   },
-  documentType: {
+  nit: {
     type: String,
-    enum: ["NIT", "DNI", "PASAPORTE"],
-  },
-  document: {
-    type: String,
-    required: [true, "El valor del documento es obligatorio"],
+    required: [true, "El Nit es obligatorio"],
   },
   personType: {
     type: String,

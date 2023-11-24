@@ -6,7 +6,6 @@ const { check } = require("express-validator");
 const {
   existEmail,
   userExistById,
-  existDocument,
 } = require("../../helpers/customValidations/index");
 
 serviceAgentRoutes.get("/", serviceAgentControllers.getServiceAgents);
@@ -17,8 +16,6 @@ serviceAgentRoutes.post(
     check("username", "EL nombre es obligatorio").not().isEmpty(),
     check("email", "EL email es obligatorio").not().isEmpty(),
     check("password", "La contraseña es obligatoria").not().isEmpty(),
-    check("document", "El documento de identidad es obligatorio").not().isEmpty(),
-    check("document").custom(existDocument),
     fieldsValidate,
   ],
   serviceAgentControllers.registerServiceAgent
