@@ -56,7 +56,6 @@ const getTicketById = async (req, res) => {
 const getTicketsByTechnician = async (req, res) => {
   try {
     const { id, companyId } = req.params;
-    console.log(id, companyId)
     const [total, tickets] = await Promise.all([
       Ticket.countDocuments({ technician_id: id, company_id: companyId }),
       Ticket.find({ technician_id: id, company_id: companyId })
