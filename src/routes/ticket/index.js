@@ -31,7 +31,7 @@ ticketRoutes.post(
   ticketControllers.registerTicket
 );
 
-ticketRoutes.delete(
+ticketRoutes.post(
   "/deleteticket/:id",
   validarJWT,
   [check("id", "El id no es válido").isMongoId(), fieldsValidate],

@@ -2,7 +2,6 @@ const User = require("../../../models/User");
 
 const getUser = async (req, res) => {
   const { id } = req.params;
-  console.log(id);
   try {
     const user = await User.findById(id);
     return res.status(200).json(user);

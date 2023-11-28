@@ -10,16 +10,18 @@ const {
 
 userRoutes.get("/", validarJWT, userControllers.getUsers);
 
+userRoutes.get("/getallusers", userControllers.getAllUsers)
+
 userRoutes.post(
   "/registeruser",
-  [
-    check("nit", "El NIT es obligatorio").not().isEmpty(),
-    check("username", "EL nombre es obligatorio").not().isEmpty(),
-    check("email", "EL email es obligatorio").not().isEmpty(),
-    check("email").custom(existEmail),
-    check("password", "La contraseña es obligatoria").not().isEmpty(),
-    fieldsValidate,
-  ],
+  // [
+  //   check("nit", "El NIT es obligatorio").not().isEmpty(),
+  //   check("username", "EL nombre es obligatorio").not().isEmpty(),
+  //   check("email", "EL email es obligatorio").not().isEmpty(),
+  //   check("email").custom(existEmail),
+  //   check("password", "La contraseña es obligatoria").not().isEmpty(),
+  //   fieldsValidate,
+  // ],
   userControllers.registerUser
 );
 userRoutes.post(
@@ -60,7 +62,7 @@ userRoutes.post(
   userControllers.getUser
 );
 
-userRoutes.delete(
+userRoutes.post(
   "/deleteuser/:id",
   validarJWT,
   [

@@ -89,6 +89,9 @@ const TicketSchema = Schema({
     ref: "FinalClient",
     required: [true, "Es obligatorio asignar un cliente final."],
   },
+  empresa: {
+    type: String,
+  }
 });
 
 TicketSchema.pre("save", async function (next) {
