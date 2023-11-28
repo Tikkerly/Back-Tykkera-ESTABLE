@@ -25,6 +25,10 @@ const FinalClientSchema = Schema({
         type: String,
         required: [true, 'Se requiere un número de celular.']
     },
+    status: {
+        type: Boolean,
+        default: true,
+    },
     address: {
         type: String,
         required: [true, 'Se requiere una dirección.']

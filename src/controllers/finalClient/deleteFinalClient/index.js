@@ -5,19 +5,19 @@ const deleteFinalClient = async (req, res) => {
     const { id } = req.params;
 
     const finalClient = await FinalClient.findByIdAndUpdate(id, {
-      banned: true,
+      status: req.body.status,
     });
-
+    const message = req.body.status ? " ha sido desbloqueado con exito" : " ha sido bloqueado con exito"
     return res
       .status(200)
       .json({
-        message: "El cliente final ha sido borrado con éxito",
+        message: "El cliente final" + message,
         finalClient,
       });
   } catch (error) {
     return res
       .status(400)
-      .json({ message: "Error al borrar al cliente final." });
+      .json({ message: "Error en la operación" });
   }
 };
 

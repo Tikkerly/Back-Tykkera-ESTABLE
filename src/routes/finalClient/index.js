@@ -37,7 +37,7 @@ finalClientRoutes.put(
   validarJWT,
   [
     check("id", "El id no es valido").isMongoId(),
-    check("id").custom(finalClientExistById),
+    // check("id").custom(finalClientExistById),
     fieldsValidate,
   ],
   finalClientControllers.editFinalClient
@@ -48,7 +48,7 @@ finalClientRoutes.get(
   validarJWT,
   [
     check("id", "El id no es valido").isMongoId(),
-    check("id").custom(finalClientExistById),
+    // check("id").custom(finalClientExistById),
     fieldsValidate,
   ],
   finalClientControllers.getFinalClientByID
@@ -59,7 +59,7 @@ finalClientRoutes.post(
   validarJWT,
   [
     check("id", "El id no es valido").isMongoId(),
-    check("id").custom(finalClientExistById),
+    // check("id").custom(finalClientExistById),
     fieldsValidate,
   ],
   finalClientControllers.deleteFinalClient

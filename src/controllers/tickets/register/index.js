@@ -19,6 +19,7 @@ const registerTicket = async (req, res) => {
       ammount,
       cost,
       others,
+      empresa,
     } = req.body;
     const utility = ammount - cost - others;
     const IVA = 0.19 * ammount;
@@ -37,6 +38,7 @@ const registerTicket = async (req, res) => {
       technician_id,
       finalClient_id,
       serviceClient_id,
+      empresa,
     });
     await ticket.save();
 

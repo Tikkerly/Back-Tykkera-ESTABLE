@@ -38,7 +38,7 @@ serviceAgentRoutes.put(
   validarJWT,
   [
     check("id", "El id no es valido").isMongoId(),
-    check("id").custom(serviceAgentExistById),
+    // check("id").custom(serviceAgentExistById),
     fieldsValidate,
   ],
   serviceAgentControllers.editServiceAgent
@@ -49,7 +49,7 @@ serviceAgentRoutes.get(
   validarJWT,
   [
     check("id", "El id no es valido").isMongoId(),
-    check("id").custom(serviceAgentExistById),
+    // check("id").custom(serviceAgentExistById),
     fieldsValidate,
   ],
   serviceAgentControllers.getServiceAgentByID
@@ -60,7 +60,7 @@ serviceAgentRoutes.post(
   validarJWT,
   [
     check("id", "El id no es valido").isMongoId(),
-    check("id").custom(serviceAgentExistById),
+    // check("id").custom(serviceAgentExistById),
     fieldsValidate,
   ],
   serviceAgentControllers.deleteServiceAgent

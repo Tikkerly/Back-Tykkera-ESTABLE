@@ -27,7 +27,7 @@ technicianRoutes.put(
   validarJWT,
   [
     check("id", "El id no es valido").isMongoId(),
-    check("id").custom(technicianExistById),
+    // check("id").custom(technicianExistById),
     fieldsValidate,
   ],
   technicianControllers.editTechnician
@@ -38,7 +38,7 @@ technicianRoutes.get(
   validarJWT,
   [
     check("id", "El id no es valido").isMongoId(),
-    check("id").custom(technicianExistById),
+    // check("id").custom(technicianExistById),
     fieldsValidate,
   ],
   technicianControllers.getTechnicianByID
@@ -49,7 +49,7 @@ technicianRoutes.post(
   validarJWT,
   [
     check("id", "El id no es valido").isMongoId(),
-    check("id").custom(technicianExistById),
+    // check("id").custom(technicianExistById),
     fieldsValidate,
   ],
   technicianControllers.deleteTechnician
