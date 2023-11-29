@@ -10,7 +10,7 @@ const {
 
 userRoutes.get("/", validarJWT, userControllers.getUsers);
 
-userRoutes.get("/getallusers", userControllers.getAllUsers)
+userRoutes.get("/getallusers", userControllers.getAllUsers);
 
 userRoutes.post(
   "/registeruser",
@@ -54,11 +54,11 @@ userRoutes.put(
 userRoutes.post(
   "/:id",
 
-  [
-    check("id", "El id no es valido").isMongoId(),
-    check("id").custom(userExistById),
-    fieldsValidate,
-  ],
+  // [
+  //   check("id", "El id no es valido").isMongoId(),
+  //   check("id").custom(userExistById),
+  //   fieldsValidate,
+  // ],
   userControllers.getUser
 );
 
