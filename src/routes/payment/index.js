@@ -17,9 +17,9 @@ paymentRoute.post("/", (req, res) => {
       },
     ],
     back_urls: {
-      success: "https://front-tikkerly.vercel.app/user/ispaid",
-      failure: "https://front-tikkerly.vercel.app/user",
-      pending: "https://front-tikkerly.vercel.app/user",
+      success: "https://tykkera.com/user/ispaid",
+      failure: "https://tykkera.com/user",
+      pending: "https://tykkera.com/user",
     },
     auto_return: "approved",
   };
