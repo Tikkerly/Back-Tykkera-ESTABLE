@@ -43,7 +43,6 @@ const registerTicket = async (req, res) => {
     await ticket.save();
 
     const user = await User.findById(company_id);
-    //console.log(user);
     sendTicketEmail(user.email);
 
     return res.status(201).json({ message: "Ticket registrado con éxito" });

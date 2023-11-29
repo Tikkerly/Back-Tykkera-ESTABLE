@@ -1,7 +1,6 @@
 const Technician = require("../../../models/Technician");
 
 const deleteTechnician = async (req, res) => {
-  console.log(req.params);
   try {
     const { id } = req.params;
     
