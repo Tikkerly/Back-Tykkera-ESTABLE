@@ -9,7 +9,6 @@ const ServiceAgent = require("../../../models/ServiceAgent");
 const forgotPassword = async (req, res) => {
   try {
     const { email } = req.body;
-    console.log(email);
     const serviceAgent = await ServiceAgent.findOne({ email });
 
     const token = await generarJWT(serviceAgent.id);

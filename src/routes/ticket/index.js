@@ -10,8 +10,8 @@ ticketRoutes.get(
 );
 
 ticketRoutes.get(
-  "/agent/:id", 
-  validarJWT, 
+  "/agent/:id",
+  validarJWT,
   ticketControllers.getTicketsByAgent
 );
 
@@ -37,6 +37,7 @@ ticketRoutes.post(
   [check("id", "El id no es válido").isMongoId(), fieldsValidate],
   ticketControllers.deleteTicket
 );
+
 ticketRoutes.put(
   "/updateticket/:id",
   validarJWT,
@@ -44,6 +45,26 @@ ticketRoutes.put(
   ticketControllers.updateTicket
 );
 
+ticketRoutes.get(
+  '/statusgraph/:id',
+  validarJWT,
+  [check("id", "El id no es válido").isMongoId(), fieldsValidate],
+  ticketControllers.statusGraph
+)
+
+ticketRoutes.get(
+  '/utilitymonthgraph/:id',
+  validarJWT,
+  [check("id", "El id no es válido").isMongoId(), fieldsValidate],
+  ticketControllers.utilityMonthGraph
+)
+
+ticketRoutes.get(
+  '/accumulatedutility/:id',
+  validarJWT,
+  [check("id", "El id no es válido").isMongoId(), fieldsValidate],
+  ticketControllers.accumulatedUtility
+)
 
 
 module.exports = ticketRoutes;
